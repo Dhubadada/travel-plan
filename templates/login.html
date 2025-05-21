@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
+  <h2 class="text-3xl font-bold text-[#204560] mb-6 text-center">Login</h2>
+  <form method="POST" action="{{ url_for('login') }}">
+    <div class="mb-4">
+      <label for="username" class="block text-[#204560] mb-2">Username</label>
+      <input type="text" id="username" name="username" required 
+             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+    </div>
+    <div class="mb-6">
+      <label for="password" class="block text-[#204560] mb-2">Password</label>
+      <input type="password" id="password" name="password" required 
+             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+    </div>
+    <button type="submit" class="w-full bg-[#204560] text-white py-3 rounded-lg font-semibold hover:bg-[#2a5b7c] transition">
+      Login
+    </button>
+  </form>
+  <p class="mt-4 text-center text-[#204560]">
+    Don't have an account? <a href="{{ url_for('register') }}" class="text-[#8ddad5] hover:underline">Register here</a>
+  </p>
+</div>
+{% endblock %}

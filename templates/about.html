@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-4xl font-bold text-[#204560] mb-8">About Wanderlust</h1>
+  
+  <div class="bg-white p-8 rounded-xl shadow-lg">
+    <div class="prose max-w-none">
+      <p class="text-lg text-gray-700 mb-6">
+        Wanderlust is your ultimate travel planning companion, designed to make trip organization 
+        effortless and enjoyable. Whether you're planning a weekend getaway or a world tour, 
+        Wanderlust helps you keep everything in one place.
+      </p>
+      
+      <h2 class="text-2xl font-semibold text-[#204560] mb-4">Features</h2>
+      <ul class="space-y-3 mb-6">
+        <li class="flex items-start">
+          <span class="text-[#8ddad5] mr-2">✓</span>
+          <span>Trip Overview: Manage all your travel details in one place</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-[#8ddad5] mr-2">✓</span>
+          <span>Expense Tracker: Keep your travel budget under control</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-[#8ddad5] mr-2">✓</span>
+          <span>To-do Lists: Never forget important tasks before and during your trip</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-[#8ddad5] mr-2">✓</span>
+          <span>Interactive Map: Visualize your travel plans</span>
+        </li>
+      </ul>
+      
+      <h2 class="text-2xl font-semibold text-[#204560] mb-4">Our Mission</h2>
+      <p class="text-gray-700 mb-6">
+        We believe that planning a trip should be as exciting as the trip itself. 
+        Our mission is to remove the stress from travel planning so you can focus 
+        on the adventure ahead.
+      </p>
+      
+      <div class="bg-[#f0f4f8] p-4 rounded-lg">
+        <h3 class="text-lg font-semibold text-[#204560] mb-2">Ready to start your journey?</h3>
+        {% if not logged_in %}
+          <a href="{{ url_for('register') }}" class="inline-block bg-[#204560] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#2a5b7c] transition">
+            Sign Up Now
+          </a>
+        {% else %}
+          <a href="{{ url_for('trips') }}" class="inline-block bg-[#204560] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#2a5b7c] transition">
+            Plan Your Next Trip
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

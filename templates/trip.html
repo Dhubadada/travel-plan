@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-4xl font-bold text-[#204560] mb-8">Your Trips</h1>
+  
+  <!-- Add Trip Form -->
+  <div class="mb-8 bg-white p-6 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-semibold text-[#204560] mb-4">Add New Trip</h2>
+    <form method="POST" action="{{ url_for('add_trip') }}">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-[#204560] mb-2">Destination</label>
+          <input type="text" name="destination" required 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+        <div>
+          <label class="block text-[#204560] mb-2">Start Date</label>
+          <input type="date" name="start_date" required 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+        <div>
+          <label class="block text-[#204560] mb-2">End Date</label>
+          <input type="date" name="end_date" required 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+        <div>
+          <label class="block text-[#204560] mb-2">Notes</label>
+          <input type="text" name="notes" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+      </div>
+      <button type="submit" class="mt-4 bg-[#204560] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#2a5b7c] transition">
+        Add Trip
+      </button>
+    </form>
+  </div>
+  
+  <!-- Trip List -->
+  {% if trips %}
+    <div class="grid gap-6 md:grid-cols-2">
+      {% for trip in trips %}
+        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#204560] mb-2">{{ trip[2] }}</h2>
+          <p class="text-gray-600 mb-4">{{ trip[3] }} to {{ trip[4] }}</p>
+          {% if trip[5] %}
+            <p class="text-gray-700">{{ trip[5] }}</p>
+          {% endif %}
+          <div class="mt-4 flex gap-2">
+            <button class="text-sm bg-[#8ddad5] text-[#204560] px-3 py-1 rounded hover:bg-[#7bc9c4] transition">
+              Edit
+            </button>
+            <button class="text-sm bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition">
+              Delete
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center py-12 bg-white p-6 rounded-xl shadow-lg">
+      <p class="text-gray-500 text-lg">You don't have any trips yet. Add one above!</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

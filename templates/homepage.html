@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+  <!-- Hero Section -->
+  <section class="flex-1 flex flex-col items-center justify-center text-center pt-10 bg-white px-6">
+    <div class="relative w-full max-w-5xl mx-auto">
+      <img src="{{ url_for('static', filename='travell.png') }}" alt="Travel illustration" class="w-full max-w-md mx-auto relative z-0 drop-shadow-lg">
+      <div class="absolute inset-0 flex flex-col items-center justify-center z-10 px-3 bg-white/70 rounded-xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-[#204560] leading-tight drop-shadow-md">
+          Where Do You Want to Go Next?
+        </h1>
+        <p class="text-lg text-[#444]">Plan your next trip in minutes — start your adventure today!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  {% if logged_in %}
+  <section class="py-2">
+    <div class="flex flex-wrap justify-center gap-4">
+      <!-- Trip Overview -->
+      <div id="trip-overview" class="w-72 h-48 bg-[#ffe9d6] text-[#A0694A] p-5 rounded-3xl shadow-lg hover:scale-105 transition">
+        <a href="{{ url_for('trips') }}" class="block h-full">
+          <h2 class="text-xl font-bold text-center">Trip Overview</h2>
+          <p class="mt-6 text-sm text-center leading-snug">Snapshot of your journey: dates, locations & duration at a glance.</p>
+        </a>
+      </div>
+
+      <!-- Expense Tracker -->
+      <div id="expense-tracker" class="w-72 h-48 bg-[#dcffe3] text-[#4d8f58] p-5 rounded-3xl shadow-lg hover:scale-105 transition">
+        <a href="{{ url_for('expenses') }}" class="block h-full">
+          <h2 class="text-xl font-bold text-center">Expense Tracker</h2>
+          <p class="mt-6 text-sm text-center leading-snug">Track your travel budget with ease and stay on top of spending.</p>
+        </a>
+      </div>
+
+      <!-- To-do List -->
+      <div id="to-do-list" class="w-72 h-48 bg-[#e5e5ff] text-[#5b4da0] p-5 rounded-3xl shadow-lg hover:scale-105 transition">
+        <a href="{{ url_for('todos') }}" class="block h-full">
+          <h2 class="text-xl font-bold text-center">To-do List</h2>
+          <p class="mt-6 text-sm text-center leading-snug">Organize tasks, plan activities, and prepare everything ahead.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+  {% else %}
+  <section class="py-12 text-center">
+    <h2 class="text-3xl font-bold text-[#204560] mb-6">Sign up to start planning your trips!</h2>
+    <a href="{{ url_for('register') }}" class="bg-[#204560] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#2a5b7c] transition">
+      Create Account
+    </a>
+  </section>
+  {% endif %}
+{% endblock %}

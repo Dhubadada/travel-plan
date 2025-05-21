@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-4xl font-bold text-[#204560] mb-8">Expense Tracker</h1>
+  
+  <!-- Add Expense Form -->
+  <div class="mb-8 bg-white p-6 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-semibold text-[#204560] mb-4">Add New Expense</h2>
+    <form method="POST" action="{{ url_for('add_expense') }}">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+  <label class="block text-[#204560] mb-2">Trip</label>
+  <select name="trip_id" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+    <option value="" disabled selected>Select a trip</option>
+    {% if trips %}
+      {% for trip in trips %}
+        <option value="{{ trip[0] }}">{{ trip[2] }} ({{ trip[3] }} to {{ trip[4] }})</option>
+      {% endfor %}
+    {% else %}
+      <option value="" disabled>No trips available</option>
+    {% endif %}
+  </select>
+</div>
+        <div>
+          <label class="block text-[#204560] mb-2">Category</label>
+          <select name="category" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+            <option value="Transportation">Transportation</option>
+            <option value="Accommodation">Accommodation</option>
+            <option value="Food">Food</option>
+            <option value="Activities">Activities</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[#204560] mb-2">Amount</label>
+          <input type="number" step="0.01" name="amount" required 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+        <div>
+          <label class="block text-[#204560] mb-2">Date</label>
+          <input type="date" name="date" required 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-[#204560] mb-2">Description</label>
+          <input type="text" name="description" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8ddad5]">
+        </div>
+      </div>
+      <button type="submit" class="mt-4 bg-[#204560] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#2a5b7c] transition">
+        Add Expense
+      </button>
+    </form>
+  </div>
+  
+  <!-- Total and Expense List -->
+  <div class="mb-8 flex justify-between items-center bg-white p-4 rounded-xl shadow-lg">
+    <h2 class="text-xl font-semibold text-[#204560]">Your Expenses</h2>
+    <div class="text-xl font-semibold text-[#204560]">
+      Total: ${{ "%.2f"|format(expenses|sum(attribute=3)) }}
+    </div>
+  </div>
+  
+  {% if expenses %}
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-[#f0f4f8]">
+          <tr>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-[#204560]">Date</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-[#204560]">Trip</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-[#204560]">Category</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-[#204560]">Amount</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-[#204560]">Description</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-[#204560]">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          {% for expense in expenses %}
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">{{ expense[5] }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ expense[6] }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ expense[2] }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">${{ "%.2f"|format(expense[3]) }}</td>
+              <td class="px-6 py-4">{{ expense[4] or '' }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <button class="text-sm text-[#8ddad5] hover:text-[#7bc9c4] mr-2">Edit</button>
+                <button class="text-sm text-red-500 hover:text-red-600">Delete</button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-center py-12 bg-white p-6 rounded-xl shadow-lg">
+      <p class="text-gray-500 text-lg">No expenses recorded yet.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
