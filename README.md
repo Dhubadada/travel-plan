@@ -17,10 +17,10 @@ A comprehensive travel planning application built with Flask that helps users or
    git clone https://github.com/yourusername/wanderlust.git
    cd wanderlust
    python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install flask werkzeug
-python app.py
-Access the application at: http://localhost:5000
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install flask werkzeug
+   python app.py
+   Access the application at: http://localhost:5000
 wanderlust/
 ├── app.py
 ├── templates/
